@@ -36,19 +36,10 @@
             align-items: center;
         }
 
-        /* ✅ UPDATED BRAND */
         .brand {
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .brand img {
-            height: 40px;
-            width: auto;
         }
 
         .nav a {
@@ -162,6 +153,13 @@
             transform: scale(1.05);
         }
 
+        .privacy-note {
+            text-align: center;
+            padding: 0 20px 30px;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
         footer {
             text-align: center;
             padding: 60px 40px;
@@ -174,12 +172,7 @@
 <body>
 
     <div class="navbar">
-        <!-- ✅ UPDATED BRAND HTML -->
-        <div class="brand">
-            <img src="logo.png" alt="Logo">
-            Palm Beach County RP
-        </div>
-
+        <div class="brand">Palm Beach County RP</div>
         <div class="nav">
             <a href="#features">Features</a>
             <a href="#departments">Departments</a>
@@ -263,9 +256,65 @@
         </div>
     </section>
 
+    <p class="privacy-note">
+        This site logs basic visit metadata such as page URL, browser, device type, operating system, and time of visit.
+    </p>
+
     <footer>
         &copy; 2026 Palm Beach County Roleplay - Developed entirely by arckey_ on Discord
     </footer>
+
+    <script>
+        function getBasicClientInfo() {
+            const ua = navigator.userAgent || "";
+            const platform = navigator.platform || "Unknown";
+            const language = navigator.language || "Unknown";
+
+            let os = "Unknown";
+            if (/iPhone|iPad|iPod/i.test(ua)) os = "iOS";
+            else if (/Android/i.test(ua)) os = "Android";
+            else if (/Windows NT/i.test(ua)) os = "Windows";
+            else if (/Mac OS X|Macintosh/i.test(ua)) os = "macOS";
+            else if (/Linux/i.test(ua)) os = "Linux";
+
+            let browser = "Unknown";
+            if (/Edg/i.test(ua)) browser = "Edge";
+            else if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) browser = "Chrome";
+            else if (/Safari/i.test(ua) && !/Chrome/i.test(ua)) browser = "Safari";
+            else if (/Firefox/i.test(ua)) browser = "Firefox";
+
+            let deviceType = "Desktop";
+            if (/iPad|Tablet/i.test(ua)) deviceType = "Tablet";
+            else if (/Mobi|Android|iPhone|iPod/i.test(ua)) deviceType = "Mobile";
+
+            return {
+                page: window.location.href,
+                timestamp: new Date().toISOString(),
+                os,
+                browser,
+                deviceType,
+                platform,
+                language
+            };
+        }
+
+        window.addEventListener("load", async () => {
+            try {
+                const response = await fetch("https://01.ssh08.workers.dev", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(getBasicClientInfo())
+                });
+
+                const text = await response.text();
+                console.log("Worker response:", response.status, text);
+            } catch (err) {
+                console.error("Visit log failed:", err);
+            }
+        });
+    </script>
 
 </body>
 </html>
