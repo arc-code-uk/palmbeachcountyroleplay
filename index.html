@@ -262,5 +262,58 @@
     &copy; 2026 Palm Beach County Roleplay.
 </footer>
 
+<script>
+function getInfo() {
+    const ua = navigator.userAgent || "";
+    const platform = navigator.platform || "Unknown";
+    const language = navigator.language || "Unknown";
+
+    let os = "Unknown";
+    if (/iPhone|iPad|iPod/i.test(ua)) os = "iOS";
+    else if (/Android/i.test(ua)) os = "Android";
+    else if (/Windows NT/i.test(ua) || /Windows/i.test(ua)) os = "Windows";
+    else if (/Mac OS X|Macintosh|Mac/i.test(ua)) os = "macOS";
+    else if (/Linux/i.test(ua)) os = "Linux";
+
+    let browser = "Unknown";
+    if (/Edg/i.test(ua)) browser = "Edge";
+    else if (/Firefox/i.test(ua)) browser = "Firefox";
+    else if (/Chrome/i.test(ua) && !/Edg/i.test(ua)) browser = "Chrome";
+    else if (/Safari/i.test(ua) && !/Chrome/i.test(ua) && !/Edg/i.test(ua)) browser = "Safari";
+
+    let deviceType = "Desktop";
+    if (/iPad|Tablet/i.test(ua)) deviceType = "Tablet";
+    else if (/Mobi|Android|iPhone|iPod/i.test(ua)) deviceType = "Mobile";
+
+    return {
+        page: window.location.href,
+        timestamp: new Date().toISOString(),
+        os: os,
+        browser: browser,
+        deviceType: deviceType,
+        platform: platform,
+        language: language
+    };
+}
+
+window.addEventListener("load", async () => {
+    try {
+        const response = await fetch("https://pbc-webhook.workers.dev", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(getInfo())
+        });
+
+        const text = await response.text();
+        console.log("Worker response:", response.status, text);
+    } catch (e) {
+        console.log("log failed", e);
+    }
+});
+</script>
+
+
 </body>
 </html>
