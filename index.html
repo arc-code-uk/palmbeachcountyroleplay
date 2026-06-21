@@ -178,18 +178,18 @@
                 </div>
                 <div class="bg-white p-8 rounded-xl shadow-md">
                     <h3 class="text-xl font-semibold mb-6 text-primary">Request a Quote</h3>
-                    <form>
+                    <form action="https://formspree.io/f/mpqgapnq" method="POST">
                         <div class="mb-4">
-                            <input type="text" placeholder="Your Name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            <input type="text" name="name" placeholder="Your Name" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50" required>
                         </div>
                         <div class="mb-4">
-                            <input type="email" placeholder="Your Email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            <input type="email" name="email" placeholder="Your Email" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50" required>
                         </div>
                         <div class="mb-4">
-                            <input type="tel" placeholder="Your Phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            <input type="tel" name="phone" placeholder="Your Phone" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
                         </div>
                         <div class="mb-4">
-                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
+                            <select name="service" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50">
                                 <option value="">Select Service</option>
                                 <option value="powerwashing">Power Washing</option>
                                 <option value="gardening">Gardening</option>
@@ -199,7 +199,7 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <textarea placeholder="Tell us about your project" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"></textarea>
+                            <textarea name="message" placeholder="Tell us about your project" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50" required></textarea>
                         </div>
                         <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-dark transition">Send Message</button>
                     </form>
